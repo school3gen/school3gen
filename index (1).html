@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Школа трёх поколений · Лето 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest:  #2C4A35;
+  --sage:    #4A7C5C;
+  --sage-lt: #7A9E6E;
+  --sand:    #F2EDD8;
+  --sand-lt: #FAF7EE;
+  --cream:   #FEFCF4;
+  --div:     #CDD5C4;
+  --ink:     #1E2820;
+  --stone:   #6B7468;
+  --amber:   #C8A84B;
+  --child:   #FEF9EC;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--forest);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6vw; height: 56px;
+  border-bottom: 3px solid var(--sage);
+}
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--sand); letter-spacing: .04em; }
+nav ul { display: flex; gap: 28px; list-style: none; }
+nav a { color: var(--div); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+nav a:hover { color: var(--sand); }
+
+.burger {
+  display: none;
+  flex-direction: column; justify-content: center; gap: 5px;
+  width: 32px; height: 32px; cursor: pointer;
+  background: none; border: none; padding: 4px;
+}
+.burger span { display: block; height: 2px; background: var(--sand); transition: transform .25s, opacity .2s; }
+.burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 680px) {
+  .burger { display: flex; }
+  nav ul {
+    display: none; flex-direction: column; gap: 0;
+    position: absolute; top: 56px; left: 0; right: 0;
+    background: var(--forest); border-bottom: 3px solid var(--sage);
+    padding: 8px 0;
+  }
+  nav ul.open { display: flex; }
+  nav ul li a { display: block; padding: 12px 6vw; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,.06); }
+  section { padding: 54px 5vw; }
+  .price-wrap { flex-direction: column; gap: 28px; }
+  .speakers-grid { grid-template-columns: 1fr; }
+}
+
+/* SHARED */
+.wrap { max-width: 900px; margin: 0 auto; }
+
+.eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 14px;
+}
+.eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--div); }
+
+h2.block-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 40px);
+  color: var(--forest);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 40px;
+}
+
+section { padding: 76px 6vw; }
+section:nth-child(even) { background: var(--sand-lt); }
+section:nth-child(odd)  { background: var(--cream); }
+
+/* HERO */
+#hero {
+  background: var(--forest);
+  padding: 80px 6vw 72px;
+  border-bottom: 6px solid var(--sage);
+}
+.hero-pre {
+  font-size: 12px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--sage-lt); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-pre::before { content: ''; width: 28px; height: 2px; background: var(--amber); display: block; }
+#hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 6.5vw, 72px);
+  color: #fff; font-weight: 700; line-height: 1.08;
+  margin-bottom: 22px;
+}
+#hero h1 em { font-style: italic; color: var(--amber); }
+.hero-dates { font-size: 19px; font-weight: 500; color: var(--sage-lt); margin-bottom: 32px; }
+.hero-desc { font-size: 17px; color: var(--div); max-width: 660px; line-height: 1.78; }
+.hero-desc strong { color: var(--sand); font-weight: 600; }
+
+/* PARTNER */
+#partner { background: var(--sand); }
+.partner-box {
+  border-left: 6px solid var(--forest);
+  padding: 32px 36px;
+  background: var(--cream);
+  display: flex; flex-direction: column; gap: 12px;
+  max-width: 560px;
+}
+.partner-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; color: var(--forest); font-weight: 700;
+}
+.partner-desc { font-size: 15px; color: var(--stone); line-height: 1.65; }
+.partner-link {
+  display: inline-block; margin-top: 6px;
+  color: var(--sage); font-weight: 600; font-size: 15px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--div);
+  align-self: flex-start;
+  transition: color .2s, border-color .2s;
+}
+.partner-link:hover { color: var(--forest); border-color: var(--forest); }
+
+/* ANKETA */
+#anketa { background: var(--forest); }
+#anketa .eyebrow { color: var(--sage-lt); }
+#anketa .eyebrow::after { background: var(--sage); }
+#anketa h2.block-title { color: var(--sand); }
+.anketa-desc { font-size: 17px; color: var(--div); max-width: 580px; line-height: 1.75; margin-bottom: 36px; }
+.btn {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 15px; font-weight: 600; letter-spacing: .04em;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.btn-amber { background: var(--amber); color: var(--ink); }
+.btn-amber:hover { background: #d4b055; transform: translateY(-2px); }
+.btn-forest { background: var(--forest); color: var(--sand); }
+.btn-forest:hover { background: var(--sage); transform: translateY(-2px); }
+
+/* SPEAKERS */
+.speakers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 3px;
+}
+.speaker-card {
+  padding: 24px 28px;
+  border-left: 5px solid var(--forest);
+  background: var(--cream);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.speaker-card:nth-child(even) { border-left-color: var(--sage); background: var(--sand); }
+.speaker-name { font-family: 'Playfair Display', serif; font-size: 19px; color: var(--forest); font-weight: 600; line-height: 1.2; }
+.speaker-role { font-size: 14px; color: var(--stone); font-style: italic; line-height: 1.55; }
+.speaker-day {
+  display: inline-block; margin-top: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--sage-lt); background: var(--sand-lt);
+  padding: 3px 10px; align-self: flex-start;
+}
+
+/* PRICE */
+.price-wrap { display: flex; gap: 56px; flex-wrap: wrap; align-items: flex-start; }
+.price-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 9vw, 96px);
+  color: var(--forest); font-weight: 700; line-height: 1;
+  white-space: nowrap;
+}
+.price-cur { font-size: 26px; color: var(--sage); margin-left: 6px; }
+.price-right { flex: 1; min-width: 260px; }
+.price-right h3 { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); margin-bottom: 18px; }
+.price-right ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.price-right li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; line-height: 1.5; }
+.price-right li::before { content: ''; flex-shrink: 0; width: 6px; height: 6px; background: var(--amber); margin-top: 9px; }
+.price-note {
+  margin-top: 26px; padding: 16px 20px;
+  border-left: 4px solid var(--div);
+  font-size: 14px; color: var(--stone); line-height: 1.65;
+}
+
+/* FAQ */
+.faq-list { display: flex; flex-direction: column; gap: 3px; }
+.faq-item {
+  background: var(--cream);
+  border-left: 5px solid var(--div);
+  transition: border-color .2s;
+}
+.faq-item:hover { border-left-color: var(--sage); }
+.faq-num {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--amber);
+  padding: 20px 24px 0;
+}
+.faq-q {
+  padding: 6px 24px 12px;
+  font-weight: 600; font-size: 16px; color: var(--forest);
+  line-height: 1.45;
+}
+.faq-a {
+  padding: 0 24px 22px;
+  font-size: 15.5px; color: var(--stone); line-height: 1.7;
+  border-top: 1px solid var(--div);
+  padding-top: 14px;
+}
+.faq-a a { color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--div); transition: color .2s; }
+.faq-a a:hover { color: var(--forest); }
+
+/* CONTACTS */
+#contacts { background: var(--forest); }
+#contacts .eyebrow { color: var(--sage-lt); }
+#contacts .eyebrow::after { background: var(--sage); }
+#contacts h2.block-title { color: var(--sand); }
+.contact-email {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4vw, 36px);
+  color: var(--amber); text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color .2s;
+  display: inline-block; margin-bottom: 18px;
+}
+.contact-email:hover { border-color: var(--amber); }
+.contact-note { font-size: 14px; color: var(--stone); line-height: 1.6; }
+
+/* FOOTER */
+footer {
+  background: var(--ink); border-top: 3px solid var(--forest);
+  padding: 22px 6vw;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+}
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--stone); }
+.footer-copy { font-size: 12px; color: #3a3a3a; }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Школа трёх поколений</div>
+  <button class="burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
+    <li><a href="#about" class="nav-link">О школе</a></li>
+    <li><a href="#speakers" class="nav-link">Гости</a></li>
+    <li><a href="#anketa" class="nav-link">Участие</a></li>
+    <li><a href="#price" class="nav-link">Стоимость</a></li>
+    <li><a href="#faq" class="nav-link">FAQ</a></li>
+    <li><a href="#contacts" class="nav-link">Контакты</a></li>
+  </ul>
+</nav>
+
+<script>
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('nav-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+</script>
+
+<!-- HERO / О ШКОЛЕ -->
+<section id="hero">
+  <div class="wrap" id="about">
+    <div class="hero-pre">Агверан, Армения · Лето 2026</div>
+    <h1>Школа трёх<br>поколений</h1>
+    <div class="hero-dates">7–13 августа 2026</div>
+    <p class="hero-desc">
+      Летняя образовательная программа, объединяющая <strong>детей от 7 до 17 лет, их родителей и бабушек с дедушками</strong>, а также взрослых без детей. Семь дней мы исследуем игру как явление — в литературе и философии, архитектуре и кулинарии, театральных практиках и цифровых технологиях, а также в повседневной жизни. Объединяющими детско-взрослыми проектами станут выборы любимого писателя и съёмка фильма о Школе.
+    </p>
+  </div>
+</section>
+
+<!-- ПАРТНЕР -->
+<section id="partner">
+  <div class="wrap">
+    <div class="eyebrow">Наш партнёр</div>
+    <div class="partner-box">
+      <div class="partner-name">Big Community Camp</div>
+      <div class="partner-desc">Организационный партнёр проекта — международный сюжетно-языковой лагерь Big Community.</div>
+      <a class="partner-link" href="https://armenia.bc-camp.com/" target="_blank" rel="noopener">armenia.bc-camp.com →</a>
+    </div>
+  </div>
+</section>
+
+<!-- АНКЕТА -->
+<section id="anketa">
+  <div class="wrap">
+    <div class="eyebrow">Участие</div>
+    <h2 class="block-title">Заполните заявку<br>и получите программу</h2>
+    <p class="anketa-desc">Подробная программа для детей и для взрослых высылается каждому, кто заполнил анкету на участие.</p>
+    <a class="btn btn-amber" href="https://forms.gle/yWjC9HmZPv2L3BoQ6" target="_blank" rel="noopener">Заполнить анкету</a>
+  </div>
+</section>
+
+<!-- ГОСТИ -->
+<section id="speakers">
+  <div class="wrap">
+    <div class="eyebrow">Гости школы</div>
+    <h2 class="block-title">Кто приедет</h2>
+    <div class="speakers-grid">
+
+      <div class="speaker-card">
+        <div class="speaker-name">Александр Архангельский</div>
+        <div class="speaker-role">Писатель, публицист, кандидат филологических наук (Москва / Ереван)</div>
+      </div>
+
+      <div class="speaker-card">
+        <div class="speaker-name">Иван Микиртумов</div>
+        <div class="speaker-role">Философ, доктор философских наук (Санкт-Петербург / Тель-Авив)</div>
+      </div>
+
+      <div class="speaker-card">
+        <div class="speaker-name">Тихон Архангельский</div>
+        <div class="speaker-role">Автор исследования «Социология покера» (Москва / Вена)</div>
+      </div>
+
+      <div class="speaker-card">
+        <div class="speaker-name">Марк Григорян</div>
+        <div class="speaker-role">Журналист, писатель, историк архитектуры (Ереван)</div>
+      </div>
+
+      <div class="speaker-card">
+        <div class="speaker-name">Василий Буров</div>
+        <div class="speaker-role">Исследователь влияния технологий на общество, издатель Kust press (Москва / Ереван)</div>
+      </div>
+
+      <div class="speaker-card">
+        <div class="speaker-name">Иван Бобков</div>
+        <div class="speaker-role">Специалист в области видео, графики и монтажа, автор ИИ-стартапа Selfio (Ереван)</div>
+      </div>
+
+      <div class="speaker-card">
+        <div class="speaker-name">Ольга Занегина</div>
+        <div class="speaker-role">Куратор образовательных программ, химик, кулинар (Москва / Ереван)</div>
+      </div>
+
+      <div class="speaker-card">
+        <div class="speaker-name">Александр Фарамазян</div>
+        <div class="speaker-role">Физик, кулинар, шеф ресторана «Барев Арев» (Ереван)</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- СТОИМОСТЬ -->
+<section id="price">
+  <div class="wrap">
+    <div class="eyebrow">Стоимость участия</div>
+    <h2 class="block-title">Что входит в цену</h2>
+    <div class="price-wrap">
+      <div>
+        <div class="price-num">222 000<span class="price-cur">֏</span></div>
+      </div>
+      <div class="price-right">
+        <h3>В стоимость входит</h3>
+        <ul>
+          <li>Проживание в гостинице на всё время Школы</li>
+          <li>4-разовое питание</li>
+          <li>Трансфер Ереван — Агверан — Ереван</li>
+          <li>Полная образовательная программа</li>
+          <li>Дежурный врач</li>
+        </ul>
+        <div class="price-note">Билеты до Еревана и страховку каждый участник приобретает самостоятельно.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">Вопросы и ответы</div>
+    <h2 class="block-title">FAQ</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-num">01</div>
+        <div class="faq-q">Где будет проходить Школа трёх поколений?</div>
+        <div class="faq-a">В 4-звёздочном отеле Arthurs Aghveran Resort (Армения).</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-num">02</div>
+        <div class="faq-q">Детей какого возраста вы принимаете? Можно приехать взрослым без детей?</div>
+        <div class="faq-a">Мы расширили возрастные рамки и переориентировали Школу на детей с 7 до 17 лет, а также их родителей и бабушек/дедушек. Но можно приехать и взрослым без детей.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-num">03</div>
+        <div class="faq-q">Где можно посмотреть программу для детей и для взрослых?</div>
+        <div class="faq-a">Программа высылается каждому, заполнившему анкету на участие: <a href="https://forms.gle/yWjC9HmZPv2L3BoQ6" target="_blank" rel="noopener">forms.gle/yWjC9HmZPv2L3BoQ6</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
+<section id="contacts">
+  <div class="wrap">
+    <div class="eyebrow">Контакты для связи</div>
+    <h2 class="block-title">Напишите нам</h2>
+    <a class="contact-email" href="mailto:school3gen@gmail.com">school3gen@gmail.com</a>
+    <div class="contact-note">Пишите по любым вопросам — мы ответим в ближайшее время.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Школа трёх поколений · Лето 2026</div>
+  <div class="footer-copy">© 2026</div>
+</footer>
+
+</body>
+</html>
