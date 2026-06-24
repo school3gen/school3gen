@@ -45,6 +45,32 @@ nav ul { display: flex; gap: 28px; list-style: none; }
 nav a { color: var(--div); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
 nav a:hover { color: var(--sand); }
 
+.burger {
+  display: none;
+  flex-direction: column; justify-content: center; gap: 5px;
+  width: 32px; height: 32px; cursor: pointer;
+  background: none; border: none; padding: 4px;
+}
+.burger span { display: block; height: 2px; background: var(--sand); transition: transform .25s, opacity .2s; }
+.burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 680px) {
+  .burger { display: flex; }
+  nav ul {
+    display: none; flex-direction: column; gap: 0;
+    position: absolute; top: 56px; left: 0; right: 0;
+    background: var(--forest); border-bottom: 3px solid var(--sage);
+    padding: 8px 0;
+  }
+  nav ul.open { display: flex; }
+  nav ul li a { display: block; padding: 12px 6vw; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,.06); }
+  section { padding: 54px 5vw; }
+  .price-wrap { flex-direction: column; gap: 28px; }
+  .speakers-grid { grid-template-columns: 1fr; }
+}
+
 /* SHARED */
 .wrap { max-width: 900px; margin: 0 auto; }
 
@@ -227,14 +253,6 @@ footer {
 .footer-logo { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--stone); }
 .footer-copy { font-size: 12px; color: #3a3a3a; }
 
-/* RESPONSIVE */
-@media (max-width: 640px) {
-  nav ul { gap: 14px; }
-  nav a { font-size: 11px; }
-  section { padding: 54px 5vw; }
-  .price-wrap { flex-direction: column; gap: 28px; }
-  .speakers-grid { grid-template-columns: 1fr; }
-}
 </style>
 </head>
 <body>
@@ -242,15 +260,33 @@ footer {
 <!-- NAV -->
 <nav>
   <div class="nav-logo">Школа трёх поколений</div>
-  <ul>
-    <li><a href="#about">О школе</a></li>
-    <li><a href="#speakers">Гости</a></li>
-    <li><a href="#anketa">Участие</a></li>
-    <li><a href="#price">Стоимость</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contacts">Контакты</a></li>
+  <button class="burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
+    <li><a href="#about" class="nav-link">О школе</a></li>
+    <li><a href="#anketa" class="nav-link">Участие</a></li>
+    <li><a href="#speakers" class="nav-link">Гости</a></li>
+    <li><a href="#price" class="nav-link">Стоимость</a></li>
+    <li><a href="#faq" class="nav-link">FAQ</a></li>
+    <li><a href="#contacts" class="nav-link">Контакты</a></li>
   </ul>
 </nav>
+
+<script>
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('nav-menu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+</script>
 
 <!-- HERO / О ШКОЛЕ -->
 <section id="hero">
@@ -281,7 +317,7 @@ footer {
   <div class="wrap">
     <div class="eyebrow">Участие</div>
     <h2 class="block-title">Заполните заявку<br>и получите программу</h2>
-    <p class="anketa-desc">Подробная программа для детей и для взрослых высылается каждому, кто заполнил анкету на участие.</p>
+    <p class="anketa-desc">Подробная программа для детей и для взрослых высылается каждому, кто отправил анкету на предварительное участие.</p>
     <a class="btn btn-amber" href="https://forms.gle/yWjC9HmZPv2L3BoQ6" target="_blank" rel="noopener">Заполнить анкету</a>
   </div>
 </section>
@@ -290,7 +326,7 @@ footer {
 <section id="speakers">
   <div class="wrap">
     <div class="eyebrow">Гости школы</div>
-    <h2 class="block-title">Кто приедет</h2>
+    <h2 class="block-title">К нам приедут</h2>
     <div class="speakers-grid">
 
       <div class="speaker-card">
@@ -347,7 +383,6 @@ footer {
         <div class="price-num">222 000<span class="price-cur">֏</span></div>
       </div>
       <div class="price-right">
-        <h3>В стоимость входит</h3>
         <ul>
           <li>Проживание в гостинице на всё время Школы</li>
           <li>4-разовое питание</li>
