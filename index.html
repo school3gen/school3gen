@@ -433,7 +433,7 @@ footer { background: var(--ink); padding: 28px clamp(20px,6vw,64px); display: fl
   <div class="wrap">
     <span class="eyebrow">Семь дней, шесть тем</span>
     <h2 class="h2">Программа</h2>
-    <p class="lead-p" style="margin-bottom:36px;">Каждый день — это новый смысловой вектор и работа с приглашённым гостем. Мы разгрузили утро для прогулок в горах, днём переходим к разножанровым лекциям, воркшопам и работе с текстами, а вечер оставили для театральной программы.</p>
+    <p class="lead-p" style="margin-bottom:36px;">Каждый день — это новый смысловой вектор и работа с приглашённым гостем. Мы разгрузили утро для прогулок в горах, днём переходим к разножанровым лекциям, воркшопам и работе с текстами, а вечер оставили для театральной программы. И дети, и взрослые смогут комбинировать треки и посещать интересные для себя активности в обеих программах.</p>
 
     <div class="tabs" role="tablist">
       <button class="tab-btn active" data-tab="adult" role="tab">Для взрослых</button>
@@ -491,12 +491,44 @@ footer { background: var(--ink); padding: 28px clamp(20px,6vw,64px); display: fl
     </div>
 
     <div class="tab-pane" id="tab-kids" role="tabpanel">
-      <!-- МЕСТО ПОД ДЕТСКУЮ ПРОГРАММУ. Пришлёте расписание — заполню так же, как взрослую. -->
-      <div class="pane-empty">
-        <h3>Детская программа готовится</h3>
-        <p>Дети и подростки идут по той же теме лета, но своим путём — через игры, проекты и вылазки, с вожатыми и общим финалом: выборами писателя и фильмом о Школе. Полное расписание детского трека по возрастам высылаем по заявке.</p>
-        <a class="btn btn-sun" href="#anketa">Оставить заявку и получить программу</a>
+      <div class="oneday">
+        <h3>Как устроен день</h3>
+        <div class="od-sub">Три части дня — от завтрака до вечера</div>
+        <div class="od-parts">
+          <div class="od-part">
+            <div class="od-meal"><span class="od-meal-time">09:00</span><span class="od-meal-name">Завтрак</span></div>
+            <div class="od-part-label">Утро</div>
+            <ul class="od-list">
+              <li>Подвижные игры или бассейн</li>
+              <li>Вводная тематическая встреча</li>
+            </ul>
+          </div>
+          <div class="od-part">
+            <div class="od-meal"><span class="od-meal-time">13:00</span><span class="od-meal-name">Обед</span></div>
+            <div class="od-part-label">День</div>
+            <ul class="od-list">
+              <li>Творческие мастер-классы и воркшопы</li>
+              <li>Игровые занятия или подготовка театральной программы</li>
+            </ul>
+          </div>
+          <div class="od-part">
+            <div class="od-meal"><span class="od-meal-time">19:00</span><span class="od-meal-name">Ужин</span></div>
+            <div class="od-part-label">Вечер</div>
+            <ul class="od-list">
+              <li>Подготовка к выборам писателя или работа над арт-проектами</li>
+              <li>Театральная программа: читка, вербатим, сайт-специфик и др.</li>
+            </ul>
+          </div>
+        </div>
       </div>
+
+      <div class="themes">
+        <div class="themes-cta">
+          <p>Дети и подростки идут по той же теме лета, но своим путём — через игры, проекты и вылазки, с вожатыми и общим финалом: выборами писателя и фильмом о Школе. Полное расписание детского трека по возрастам высылаем по заявке.</p>
+          <a class="btn btn-sun" href="#anketa">Оставить заявку и получить программу</a>
+        </div>
+      </div>
+    </div>
 
       <div class="kids-partner">
         <div class="kids-partner-head">
