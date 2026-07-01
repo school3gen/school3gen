@@ -312,6 +312,8 @@ section { padding: clamp(64px,9vw,110px) clamp(20px,6vw,64px); position: relativ
 #contacts .eyebrow { color: var(--sage-lt); }
 .contact-email { font-family: 'Playfair Display', serif; font-size: clamp(22px,4vw,38px); color: var(--sun-1); text-decoration: none; border-bottom: 2px solid transparent; transition: border-color .2s; display: inline-block; margin-bottom: 26px; }
 .contact-email:hover { border-color: var(--sun-1); }
+.contact-tg { display: inline-flex; align-items: center; gap: 10px; color: var(--sun-1); text-decoration: none; font-size: 18px; font-weight: 600; margin-left: 32px; margin-bottom: 26px; opacity: .9; transition: opacity .2s; vertical-align: middle; }
+.contact-tg:hover { opacity: 1; }
 .contact-note { font-size: 14px; color: var(--stone-lt); line-height: 1.6; }
 
 footer { background: var(--ink); padding: 28px clamp(20px,6vw,64px); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
@@ -740,6 +742,10 @@ footer { background: var(--ink); padding: 28px clamp(20px,6vw,64px); display: fl
     <span class="eyebrow">Связаться</span>
     <h2 class="h2">Напишите координатору</h2>
     <a class="contact-email" href="mailto:school3gen@gmail.com">school3gen@gmail.com</a>
+    <a class="contact-tg" href="https://t.me/school3gen" target="_blank" rel="noopener" aria-label="Телеграм @school3gen">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+      @school3gen
+    </a>
     <div class="contact-note">Координатор ответит на любые вопросы — по программе, оплате, заезду и проживанию.</div>
   </div>
 </section>
@@ -771,9 +777,21 @@ footer { background: var(--ink); padding: 28px clamp(20px,6vw,64px); display: fl
 
   const leadBtn = document.getElementById('lead-submit');
   if (leadBtn) {
-    leadBtn.addEventListener('click', () => {
-      const email = document.getElementById('lead-email');
-      if (!email.value.trim() || !email.value.includes('@')) { email.focus(); email.style.borderColor = '#c0392b'; return; }
+    leadBtn.addEventListener('click', async () => {
+      const nameEl = document.getElementById('lead-name');
+      const emailEl = document.getElementById('lead-email');
+      if (!emailEl.value.trim() || !emailEl.value.includes('@')) {
+        emailEl.focus(); emailEl.style.borderColor = '#c0392b'; return;
+      }
+      leadBtn.disabled = true;
+      leadBtn.textContent = 'Отправляем…';
+      try {
+        await fetch('https://formspree.io/f/school3gen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ name: nameEl.value.trim(), email: emailEl.value.trim(), _subject: 'Запрос гайда «10 игр»' })
+        });
+      } catch(e) {}
       document.getElementById('lead-form').style.display = 'none';
       document.getElementById('lead-success').classList.add('show');
     });
